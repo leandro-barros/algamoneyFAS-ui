@@ -11,3 +11,12 @@ body{
     margin: 0 auto;
   }
 }
+
+.col-valor{
+  width: 120px;
+  text-align: right;
+}
+.col-data{
+  width: 120px;
+  text-align: center;
+}
