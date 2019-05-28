@@ -5,6 +5,11 @@ body{
   color : #404c51
 }
 
+a {
+  color: #337ab7;
+  text-decoration: none;
+}
+
 @media (min-width : 1200px){
   .contanier {
     width: 1179px;
@@ -16,6 +21,7 @@ body{
   width: 120px;
   text-align: right;
 }
+
 .col-data{
   width: 120px;
   text-align: center;
