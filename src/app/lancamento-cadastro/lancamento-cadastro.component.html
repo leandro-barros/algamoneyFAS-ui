@@ -1,5 +1,5 @@
 <div class="contanier">
-  <form>
+  <form autocomplete="off">
     <div class="ui-g">
       <div class="ui-g-12">
         <h1>Novo Lançamento</h1>
@@ -23,15 +23,10 @@
         <input pInputText type="text" name="descricao" ngModel #descricao="ngModel" 
               required minlength="5">
 
-        <div *ngIf="descricao.hasError('required') && descricao.dirty" 
-            class="ui-message ui-messages-error">
-          Informe uma descrição !
-        </div> 
-        <div *ngIf="descricao.hasError('minlength') && descricao.dirty" 
-            class="ui-message ui-messages-error">
-            O mímino de {{ descricao.errors.minlength.requiredLength }} caracteres. 
-            Você digitou apenas {{ descricao.errors.minlength.actualLength }} !
-        </div>
+        <app-message [control]="descricao" error="required" 
+          text="Informe uma descrição !"></app-message>
+        <app-message [control]="descricao" error="minlength" 
+          text="O mímino de {{ descricao.errors?.minlength?.requiredLength }} caracteres !"></app-message>
       </div>
       <div class="ui-g-12 ui-md-3 ui-fluid">
         <label>Valor</label>
@@ -47,7 +42,7 @@
         <p-dropdown [options]="pessoas" [filter]="true" placeholder="Selecione"></p-dropdown>
       </div>
       <div class="ui-g-12 ui-fluid">
-        <label>observação</label>
+        <label>Observação</label>
         <textarea pInputTextarea rows="3"></textarea>
       </div>
 
