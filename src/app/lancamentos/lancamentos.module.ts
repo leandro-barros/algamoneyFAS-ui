@@ -16,7 +16,6 @@ import { LancamentosGridComponent } from './lancamentos-grid/lancamentos-grid.co
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 
-
 @NgModule({
   declarations: [
     LancamentoCadastroComponent,
