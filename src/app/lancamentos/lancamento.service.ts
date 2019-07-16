@@ -1,8 +1,7 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-// import { URLSearchParams } from '@angular/http';
 import { map } from 'rxjs/operators';
 
 
@@ -20,15 +19,16 @@ export class LancamentoService {
   constructor(private http: HttpClient) { }
 
   pesquisar(filtro: LancamentoFiltro): Observable<any> {
-    const params = new URLSearchParams();
+    let params = new HttpParams();
+
     const headers = new HttpHeaders({
       'Content-Type':  'application/json',
       'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
     });
     if (filtro.descricao) {
-      params.set('descricao', filtro.descricao);
+      params = params.append('descricao', filtro.descricao);
     }
-    return this.http.get<any[]>(`${this.lancamentosUrl}?resumo`, { headers, search: params })
+    return this.http.get<any[]>(`${this.lancamentosUrl}?resumo`, { headers, params: params })
     .pipe(
       map(res => res ['content'])
     );
