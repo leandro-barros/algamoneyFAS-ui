@@ -29,6 +29,7 @@
   <div class="ui-g">
     <div class="ui-g-12">
       <p-table [value]="lancamentos" [paginator]="true"
+        emptyMessage="Nenhuma pessoa encontrada"
         [responsive]="true" emptyMessage="Nenhum lançamento encontrado !"
         [rows]="filtro.itensPorPagina" [lazy]="true" [totalRecords]="totalRegistros"
         (onLazyLoad)="aoMudarPagina($event)">
