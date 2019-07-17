@@ -12,12 +12,12 @@
 
       <div class="ui-g-12">
         <label style="display : block">Vencimento</label>
-        <p-calendar dateFormat="dd/mm/yy" [inline]="false" [inputStyle]="{ width: '95px' }"
-          name="vencimentoInicio" [(ngModel)]="filtro.dataVencimentoInicio"></p-calendar>
+        <p-calendar dateFormat="dd/mm/yy" [inline]="false" [inputStyle]="{ width: '95px' }" name="vencimentoInicio"
+          [(ngModel)]="filtro.dataVencimentoInicio"></p-calendar>
 
         <label>Até</label>
-        <p-calendar dateFormat="dd/mm/yy" [inline]="false" [inputStyle]="{ width: '95px' }"
-          name="vencimentoFim" [(ngModel)]="filtro.dataVencimentoFim"></p-calendar>
+        <p-calendar dateFormat="dd/mm/yy" [inline]="false" [inputStyle]="{ width: '95px' }" name="vencimentoFim"
+          [(ngModel)]="filtro.dataVencimentoFim"></p-calendar>
       </div>
 
       <div class="ui-g-12">
@@ -28,11 +28,9 @@
 
   <div class="ui-g">
     <div class="ui-g-12">
-      <p-table [value]="lancamentos" [paginator]="true"
-        emptyMessage="Nenhuma pessoa encontrada"
-        [responsive]="true" emptyMessage="Nenhum lançamento encontrado !"
+      <p-table [value]="lancamentos" [paginator]="true" [responsive]="true"
         [rows]="filtro.itensPorPagina" [lazy]="true" [totalRecords]="totalRegistros"
-        (onLazyLoad)="aoMudarPagina($event)">
+        (onLazyLoad)="aoMudarPagina($event)" #tabela>
         <ng-template pTemplate="header">
           <tr>
             <th>Pessoa</th>
@@ -54,7 +52,15 @@
             <td class="col-acoes">
               <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
               &nbsp;
-              <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+              <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" (click)="excluir(l)"></button>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="6">
+              Nenhum lançamento encontrado
             </td>
           </tr>
         </ng-template>

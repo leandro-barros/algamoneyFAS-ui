@@ -5,7 +5,6 @@ import { HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
-
 export class LancamentoFiltro {
   descricao: string;
   dataVencimentoInicio: Date;
@@ -54,6 +53,16 @@ export class LancamentoService {
         return resultado;
       })
     );
+  }
+
+  excluir(codigo: number): Promise<void> {
+    const headers = new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
+    });
+    return this.http.delete(`${this.lancamentosUrl}/${codigo}`, { headers })
+      .toPromise()
+      .then(() => null);
   }
 
   // .pipe(
