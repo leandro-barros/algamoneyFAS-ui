@@ -2,6 +2,8 @@ import { LancamentoService, LancamentoFiltro } from './../lancamento.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/components/common/api';
 
+import { ToastyService } from 'ng2-toasty';
+
 @Component({
   selector: 'app-lancamentos-pesquisa',
   templateUrl: './lancamentos-pesquisa.component.html',
@@ -14,7 +16,10 @@ export class LancamentosPesquisaComponent implements OnInit {
 
   @ViewChild('tabela') grid;
 
-  constructor(private lancamentoService: LancamentoService) {}
+  constructor(
+      private lancamentoService: LancamentoService,
+      private toasty: ToastyService
+    ) {}
 
   ngOnInit() {
     // this.pesquisar();
@@ -41,6 +46,8 @@ export class LancamentosPesquisaComponent implements OnInit {
         this.grid.first = 0;
         // verificar se precisa deste método
         this.pesquisar();
+
+        this.toasty.info('Lançamento excluído com sucesso !');
       });
   }
 }
