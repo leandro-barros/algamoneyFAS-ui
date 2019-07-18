@@ -45,8 +45,8 @@
           <tr>
             <td>{{l.pessoa}}</td>
             <td>{{l.descricao}}</td>
-            <td>{{l.dataVencimento | date: 'dd/MM/y'}}</td>
-            <td>{{l.dataPagamento | date: 'dd/MM/y'}}</td>
+            <td>{{l.dataVencimento | date: 'dd/MM/yyyy'}}</td>
+            <td>{{l.dataPagamento | date: 'dd/MM/yyyy'}}</td>
             <td [ngStyle]="{color: l.tipo === 'DESPESA' ? 'red' : 'blue'}" class="col-valor">
               {{l.valor | number: '1.2-2'}}</td>
             <td class="col-acoes">
