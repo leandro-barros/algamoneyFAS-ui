@@ -1,10 +1,12 @@
-import { ErrorHandlerService } from './../core/error-handler.service';
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
+import { HttpClient, HttpParams } from '@angular/common/http';
+
 import * as moment from 'moment';
+
+import { ErrorHandlerService } from './../core/error-handler.service';
 
 export class LancamentoFiltro {
   descricao: string;
@@ -62,14 +64,28 @@ export class LancamentoService {
       );
   }
 
-  excluir(codigo: number): Promise<void> {
+  excluir(codigo: number): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
     });
     return this.http.delete(`${this.lancamentosUrl}/${codigo}`, { headers })
-      .toPromise()
-      .then(() => null);
+      .pipe(
+        catchError((err) => {
+          throw this.errorHandler.handle(err);
+        })
+      );
   }
+
+
+  // excluir(codigo: number): Promise<void> {
+  //   const headers = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
+  //   });
+  //   return this.http.delete(`${this.lancamentosUrl}/${codigo}`, { headers })
+  //     .toPromise()
+  //     .then(() => null);
+  // }
 
 }

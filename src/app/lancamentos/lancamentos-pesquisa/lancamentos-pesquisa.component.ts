@@ -4,7 +4,6 @@ import { LazyLoadEvent, ConfirmationService } from 'primeng/components/common/ap
 import { ToastyService } from 'ng2-toasty';
 
 import { LancamentoService, LancamentoFiltro } from './../lancamento.service';
-import { ErrorHandlerService } from './../../core/error-handler.service';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -20,7 +19,6 @@ export class LancamentosPesquisaComponent implements OnInit {
 
   constructor(
     private lancamentoService: LancamentoService,
-    private errorHandler: ErrorHandlerService,
     private toasty: ToastyService,
     private confirmation: ConfirmationService
   ) { }
@@ -55,17 +53,26 @@ export class LancamentosPesquisaComponent implements OnInit {
 
   excluir(lancamento: any) {
     this.lancamentoService.excluir(lancamento.id)
-      .then(() => {
-        // this.grid.first = 0;
-        if (this.grid.first === 0) {
-          this.pesquisar();
-        } else {
-          this.grid.first = 0;
-        }
-        // verificar se precisa deste método
-        // this.pesquisar();
+      .subscribe(() => {
+        this.grid.first = 0;
+        this.pesquisar();
         this.toasty.success('Lançamento excluído com sucesso !');
-      })
-      .catch(error => this.errorHandler.handle(error));
+      });
   }
+
+  // excluir(lancamento: any) {
+  //   this.lancamentoService.excluir(lancamento.id)
+  //     .then(() => {
+  //       // this.grid.first = 0;
+  //       if (this.grid.first === 0) {
+  //         this.pesquisar();
+  //       } else {
+  //         this.grid.first = 0;
+  //       }
+  //       // verificar se precisa deste método
+  //       // this.pesquisar();
+  //       this.toasty.success('Lançamento excluído com sucesso !');
+  //     })
+  //     .catch(error => this.errorHandler.handle(error));
+  // }
 }
