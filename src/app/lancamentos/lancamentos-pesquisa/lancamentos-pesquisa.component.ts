@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-// import { ConfirmationService } from 'primeng/api';
 import { LazyLoadEvent, ConfirmationService } from 'primeng/components/common/api';
 import { ToastyService } from 'ng2-toasty';
 
@@ -57,11 +56,16 @@ export class LancamentosPesquisaComponent implements OnInit {
   excluir(lancamento: any) {
     this.lancamentoService.excluir(lancamento.id)
       .then(() => {
-        this.grid.first = 0;
+        // this.grid.first = 0;
+        if (this.grid.first === 0) {
+          this.pesquisar();
+        } else {
+          this.grid.first = 0;
+        }
         // verificar se precisa deste método
-        this.pesquisar();
-
+        // this.pesquisar();
         this.toasty.success('Lançamento excluído com sucesso !');
-      });
+      })
+      .catch(error => this.errorHandler.handle(error));
   }
 }

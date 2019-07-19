@@ -1,8 +1,9 @@
+import { ErrorHandlerService } from './../core/error-handler.service';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import * as moment from 'moment';
 
 export class LancamentoFiltro {
@@ -20,13 +21,16 @@ export class LancamentoService {
 
   lancamentosUrl = 'http://localhost:8080/lancamentos';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private errorHandler: ErrorHandlerService
+  ) { }
 
   pesquisar(filtro: LancamentoFiltro): Observable<any> {
     let params = new HttpParams();
 
     const headers = new HttpHeaders({
-      'Content-Type':  'application/json',
+      'Content-Type': 'application/json',
       'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
     });
 
@@ -42,22 +46,25 @@ export class LancamentoService {
       params = params.append('dataVencimentoAte', moment(filtro.dataVencimentoFim).format('YYYY-MM-DD'));
     }
     return this.http.get<any[]>(`${this.lancamentosUrl}?resumo`, { headers, params: params })
-    .pipe(
-      map(res => {
-        const lancamentos = res ['content'];
-        const totaPages = res ['totalElements'];
-        const resultado = {
-          lancamentos,
-          total: totaPages
-        };
-        return resultado;
-      })
-    );
+      .pipe(
+        map(res => {
+          const lancamentos = res['content'];
+          const totaPages = res['totalElements'];
+          const resultado = {
+            lancamentos,
+            total: totaPages
+          };
+          return resultado;
+        }),
+        catchError((err) => {
+          throw this.errorHandler.handle(err);
+        })
+      );
   }
 
   excluir(codigo: number): Promise<void> {
     const headers = new HttpHeaders({
-      'Content-Type':  'application/json',
+      'Content-Type': 'application/json',
       'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
     });
     return this.http.delete(`${this.lancamentosUrl}/${codigo}`, { headers })
@@ -65,19 +72,4 @@ export class LancamentoService {
       .then(() => null);
   }
 
-  // .pipe(
-  //   map(res => res ['content'])
-  // );
-
-  // pesquisar(): Promise<any> {
-  //   const headers = new HttpHeaders({
-  //     'Content-Type':  'application/json',
-  //     'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
-  //   });
-  //   // headers.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-
-  //   return this.http.get(`${this.lancamentosUrl}?resumo`, { headers })
-  //     .toPromise()
-  //     .then(response => response);
-  // }
 }
