@@ -1,7 +1,9 @@
-import { map } from 'rxjs/operators';
-import { HttpHeaders, HttpParams, HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { HttpHeaders, HttpParams, HttpClient } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
+import { ErrorHandlerService } from './../core/error-handler.service';
 
 export class PessoaFiltro {
   nome: string;
@@ -16,7 +18,10 @@ export class PessoaService {
 
   pessoasUrl = 'http://localhost:8080/pessoas';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private errorHandler: ErrorHandlerService
+  ) { }
 
   pesquisar(filtro: PessoaFiltro): Observable<any> {
     let params = new HttpParams();
@@ -56,4 +61,19 @@ export class PessoaService {
         map(response => response['content'])
       );
   }
+
+  excluir(codigo: number): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
+    });
+    return this.http.delete(`${this.pessoasUrl}/${codigo}`, { headers })
+      .pipe(
+        catchError(error => {
+          throw this.errorHandler.handle(error);
+        })
+      );
+  }
+
+
 }
