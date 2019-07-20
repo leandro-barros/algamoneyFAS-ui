@@ -44,11 +44,11 @@ export class PessoasPesquisaComponent implements OnInit {
     this.pesquisar(pagina);
   }
 
-  confirmarExclusao(lancamento: any) {
+  confirmarExclusao(pessoa: any) {
     this.confirmation.confirm({
       message: 'Tem certeza que deseja excluir ?',
       accept: () => {
-        this.excluir(lancamento);
+        this.excluir(pessoa);
       }
     });
   }
@@ -58,7 +58,7 @@ export class PessoasPesquisaComponent implements OnInit {
       .subscribe(() => {
         this.grid.first = 0;
         this.pesquisar();
-        this.toasty.success('Lançamento excluído com sucesso !');
+        this.toasty.success('Pessoa excluído com sucesso !');
       });
   }
 }
