@@ -36,7 +36,8 @@
             <td>{{p.endereco.cidade}}</td>
             <td>{{p.endereco.estado}}</td>
             <td>
-              <a href="javascript:;" [pTooltip]="p.ativo ? 'Desativar':'Ativar'" tooltipPosition="top">
+              <a href="javascript:;" [pTooltip]="p.ativo ? 'Desativar':'Ativar'" tooltipPosition="top"
+                (click)="alterarStatus(p)">
                 {{p.ativo ? 'Ativo' : 'Inativo'}}
               </a>
             </td>

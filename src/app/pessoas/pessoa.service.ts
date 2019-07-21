@@ -75,5 +75,19 @@ export class PessoaService {
       );
   }
 
+  mudarStatus(codigo: number, ativo: boolean): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
+    });
+
+    return this.http.put(`${this.pessoasUrl}/${codigo}/ativo`, ativo, { headers })
+      .pipe(
+        catchError(error => {
+          throw this.errorHandler.handle(error);
+        })
+      );
+  }
+
 
 }

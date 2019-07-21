@@ -61,4 +61,15 @@ export class PessoasPesquisaComponent implements OnInit {
         this.toasty.success('Pessoa excluído com sucesso !');
       });
   }
+
+  alterarStatus(pessoa: any) {
+    const novoStatus = !pessoa.ativo;
+    this.pessoaService.mudarStatus(pessoa.id, novoStatus)
+      .subscribe(() => {
+        const acao = novoStatus ? 'Ativada' : 'Desativada';
+
+        pessoa.ativo = novoStatus;
+        this.toasty.success(`Pessoa ${acao} com sucesso !`);
+      });
+  }
 }
