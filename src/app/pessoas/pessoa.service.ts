@@ -46,6 +46,9 @@ export class PessoaService {
             total: totalPages
           };
           return resultado;
+        }),
+        catchError(error => {
+          throw this.errorHandler.handle(error);
         })
       );
   }
@@ -56,9 +59,12 @@ export class PessoaService {
       'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
     });
 
-    return this.http.get<any[]>(`${this.pessoasUrl}`, { headers })
+    return this.http.get<any[]>(this.pessoasUrl, { headers })
       .pipe(
-        map(response => response['content'])
+        map(response => response['content']),
+        catchError(error => {
+          throw this.errorHandler.handle(error);
+        })
       );
   }
 

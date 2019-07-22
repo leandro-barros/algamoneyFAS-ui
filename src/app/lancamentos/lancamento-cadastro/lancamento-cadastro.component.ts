@@ -1,3 +1,4 @@
+import { PessoaService } from './../../pessoas/pessoa.service';
 import { map } from 'rxjs/operators';
 import { CategoriaService } from './../../categorias/categoria.service';
 import { Component, OnInit } from '@angular/core';
@@ -16,18 +17,16 @@ export class LancamentoCadastroComponent implements OnInit {
 
   categorias = [];
 
-  pessoas = [
-    { label: 'João da silva', value: 1 },
-    { label: 'Sebastião Souza', value: 2 },
-    { label: 'Leandro Barros', value: 3 }
-  ];
+  pessoas = [];
 
   constructor(
-    private categoriaService: CategoriaService
+    private categoriaService: CategoriaService,
+    private pessoaService: PessoaService
   ) { }
 
   ngOnInit() {
     this.carregarCategorias();
+    this.carregarPessoas();
   }
 
   carregarCategorias() {
@@ -35,6 +34,15 @@ export class LancamentoCadastroComponent implements OnInit {
       .subscribe(categorias => {
         this.categorias = categorias.map(c => {
           return { label: c.nome, value: c.id };
+        });
+      });
+  }
+
+  carregarPessoas() {
+    return this.pessoaService.listarTodasPessoas()
+      .subscribe(pessoas => {
+        this.pessoas = pessoas.map(p => {
+          return { label: p.nome, value: p.id };
         });
       });
   }
