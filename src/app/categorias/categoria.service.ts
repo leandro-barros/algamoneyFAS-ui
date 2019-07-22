@@ -1,13 +1,18 @@
+import { ErrorHandlerService } from './../core/error-handler.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriaService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private errorHandler: ErrorHandlerService
+  ) { }
 
   categoriasUrl = 'http://localhost:8080/categorias';
 
@@ -17,7 +22,11 @@ export class CategoriaService {
       'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
     });
     return this.http.get(`${this.categoriasUrl}`, { headers })
-      .pipe();
+      .pipe(
+        catchError(error => {
+          throw this.errorHandler.handle(error);
+        })
+      );
   }
 
 }
