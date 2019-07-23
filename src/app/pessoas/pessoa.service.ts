@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpParams, HttpClient } from '@angular/common/http';
+
 import { map, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
+import { Pessoa } from './../core/model';
 import { ErrorHandlerService } from './../core/error-handler.service';
 
 export class PessoaFiltro {
@@ -95,5 +97,17 @@ export class PessoaService {
       );
   }
 
+  adicionar(pessoa: Pessoa): Observable<Pessoa> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
+    });
 
+    return this.http.post<Pessoa>(this.pessoasUrl, JSON.stringify(pessoa), { headers })
+      .pipe(
+        catchError(error => {
+          throw this.errorHandler.handle(error);
+        })
+      );
+  }
 }
