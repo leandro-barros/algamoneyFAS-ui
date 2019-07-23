@@ -5,6 +5,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 import * as moment from 'moment';
 
+import { Lancamento } from './../core/model';
 import { ErrorHandlerService } from './../core/error-handler.service';
 
 export class LancamentoFiltro {
@@ -77,6 +78,18 @@ export class LancamentoService {
       );
   }
 
+  adicionar(lancamento: Lancamento): Observable<Lancamento> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
+    });
+    return this.http.post<Lancamento>(this.lancamentosUrl, JSON.stringify(lancamento), { headers })
+      .pipe(
+        catchError(error => {
+          throw this.errorHandler.handle(error);
+        })
+      );
+  }
 
   // excluir(codigo: number): Promise<void> {
   //   const headers = new HttpHeaders({
