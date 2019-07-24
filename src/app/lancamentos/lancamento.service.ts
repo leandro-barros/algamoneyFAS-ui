@@ -110,12 +110,12 @@ export class LancamentoService {
       );
   }
 
-  buscarPorCodigo(codigo: number): Observable<any> {
+  buscarPorCodigo(codigo: number): Observable<Lancamento> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
     });
-    return this.http.get(`${this.lancamentosUrl}/${codigo}}`, { headers })
+    return this.http.get<Lancamento>(`${this.lancamentosUrl}/${codigo}`, { headers })
       .pipe(
         map(response => {
           const lancamento = response;
