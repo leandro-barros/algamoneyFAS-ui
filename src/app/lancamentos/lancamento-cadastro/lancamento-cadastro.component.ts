@@ -1,7 +1,7 @@
 import { FormControl } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastyService } from 'ng2-toasty';
 
@@ -31,7 +31,8 @@ export class LancamentoCadastroComponent implements OnInit {
     private pessoaService: PessoaService,
     private lancamentoService: LancamentoService,
     private toasty: ToastyService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -66,11 +67,13 @@ export class LancamentoCadastroComponent implements OnInit {
 
   adicionarLancamento(form: FormControl) {
     this.lancamentoService.adicionar(this.lancamento)
-      .subscribe(() => {
+      .subscribe(lancamentoAdicionado => {
         this.toasty.success('Lancamento adicionado com sucesso !');
 
-        form.reset();
-        this.lancamento = new Lancamento();
+        // form.reset();
+        // this.lancamento = new Lancamento();
+        // this.router.navigate(['/lancamentos']);
+        this.router.navigate(['/lancamentos', lancamentoAdicionado.id]);
       });
   }
 
@@ -98,6 +101,17 @@ export class LancamentoCadastroComponent implements OnInit {
           return { label: p.nome, value: p.id };
         });
       });
+  }
+
+  novo(form: FormControl) {
+    form.reset();
+    // Executar a função após um milisegundo
+    setTimeout(function() {
+      // O this mão estar referenciando a variável lancamento,
+      // pois estar dentro desta função com o método bind() referencia;
+      this.lancamento = new Lancamento();
+    }.bind(this), 1);
+    this.router.navigate(['/lancamentos/novo']);
   }
 
 }
