@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -35,6 +36,7 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
     ErrorHandlerService,
 
     ConfirmationService,
+    Title,
     { provide: LOCALE_ID, useValue: 'pt-BR' }
   ]
 })

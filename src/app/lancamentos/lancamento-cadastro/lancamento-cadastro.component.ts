@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { FormControl } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
@@ -32,11 +33,13 @@ export class LancamentoCadastroComponent implements OnInit {
     private lancamentoService: LancamentoService,
     private toasty: ToastyService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private title: Title
   ) { }
 
   ngOnInit() {
     console.log(this.route.snapshot.params['codigo']);
+    this.title.setTitle('Novo Lançamento');
     const codigoLancamento = this.route.snapshot.params['codigo'];
     if (codigoLancamento) {
       this.carregarLancamento(codigoLancamento);
@@ -54,6 +57,7 @@ export class LancamentoCadastroComponent implements OnInit {
     this.lancamentoService.buscarPorCodigo(codigo)
       .subscribe(lancamento => {
         this.lancamento = lancamento;
+        this.atualizarTituloEdicao();
       });
   }
 
@@ -82,6 +86,7 @@ export class LancamentoCadastroComponent implements OnInit {
       .subscribe(lancamento => {
         this.lancamento = lancamento;
         this.toasty.success('Lançamento alterado com sucesso!');
+        this.atualizarTituloEdicao();
       });
   }
 
@@ -112,6 +117,10 @@ export class LancamentoCadastroComponent implements OnInit {
       this.lancamento = new Lancamento();
     }.bind(this), 1);
     this.router.navigate(['/lancamentos/novo']);
+  }
+
+  atualizarTituloEdicao() {
+    this.title.setTitle(`Edição de lançamento: ${this.lancamento.descricao}`);
   }
 
 }
