@@ -1,7 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { DropdownModule } from 'primeng/dropdown';
@@ -14,6 +13,7 @@ import { ButtonModule } from 'primeng/components/button/button';
 import { InputTextModule } from 'primeng/components/inputtext/inputtext';
 
 import { SharedModule } from '../shared/shared.module';
+import { LancamentosRoutingModule } from './lancamentos-routing.module';
 
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
@@ -26,7 +26,6 @@ import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-ca
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule,
 
     InputTextModule,
     ButtonModule,
@@ -39,7 +38,8 @@ import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-ca
 
     CurrencyMaskModule,
 
-    SharedModule
+    SharedModule,
+    LancamentosRoutingModule
   ],
   exports : []
 })

@@ -8,10 +8,6 @@ import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { PessoasModule } from './pessoas/pessoas.module';
-import { LancamentosPesquisaComponent } from './lancamentos/lancamentos-pesquisa/lancamentos-pesquisa.component';
-import { PessoasPesquisaComponent } from './pessoas/pessoas-pesquisa/pessoas-pesquisa.component';
-import { LancamentoCadastroComponent } from './lancamentos/lancamento-cadastro/lancamento-cadastro.component';
-import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.component';
 
 @NgModule({
   declarations: [
