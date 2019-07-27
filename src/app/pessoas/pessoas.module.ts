@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/components/button/button';
 import { InputTextModule } from 'primeng/components/inputtext/inputtext';
 
 import { SharedModule } from '../shared/shared.module';
+import { PessoasRoutingModule } from './pessoas-routing.module';
 
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
@@ -30,7 +31,8 @@ import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
     TooltipModule,
     InputMaskModule,
 
-    SharedModule
+    SharedModule,
+    PessoasRoutingModule
   ],
   exports: []
 })

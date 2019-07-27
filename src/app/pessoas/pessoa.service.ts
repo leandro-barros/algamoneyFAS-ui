@@ -110,4 +110,32 @@ export class PessoaService {
         })
       );
   }
+
+  buscarPessoaPorCodigo(codigo: number): Observable<Pessoa> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
+    });
+    return this.http.get<Pessoa>(`${this.pessoasUrl}/${codigo}`, { headers })
+      .pipe(
+        catchError(error => {
+          throw this.errorHandler.handle(error);
+        })
+      );
+  }
+
+  atualizar(pessoa: Pessoa): Observable<Pessoa> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
+    });
+    return this.http.put<Pessoa>(`${this.pessoasUrl}/${pessoa.id}`,
+      JSON.stringify(pessoa), { headers })
+      .pipe(
+        catchError(error => {
+          throw this.errorHandler.handle(error);
+        })
+      );
+  }
+
 }

@@ -3,12 +3,13 @@
 
     <div class="ui-g">
       <div class="ui-g-12">
-        <h1>Nova Pessoa</h1>
+        <h1>{{ editando ? 'Edição de' : 'Nova'  }} Pessoa</h1>
       </div>
 
       <div class="ui-g-12 ui-fluid">
         <label>Nome</label>
-        <input name="nome" #nome="ngModel" [(ngModel)]="pessoa.nome" required minlength="5" pInputText type="text">
+        <input pInputText type="text" name="nome" #nome="ngModel"
+        [(ngModel)]="pessoa.nome" required minlength="5">
 
         <app-message [control]="nome" error="required"
           text="Informe o nome !"></app-message>
@@ -74,9 +75,10 @@
       <div class="ui-g-12">
         <button pButton type="submit" label="Salvar" [disabled]="f.invalid" ></button>
         &nbsp;
-        <button pButton type="button" label="Novo" class="ui-button-success"></button>
+        <button pButton type="button" label="Novo" class="ui-button-success"
+        (click)="nova(f)"></button>
         &nbsp;
-        <a href="javascript:;">Voltar para a pesquisa</a>
+        <a routerLink="/pessoas">Voltar para a pesquisa</a>
       </div>
     </div>
 

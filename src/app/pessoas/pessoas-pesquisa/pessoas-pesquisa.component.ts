@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 import { ToastyService } from 'ng2-toasty';
 import { ConfirmationService } from 'primeng/api';
@@ -22,11 +23,12 @@ export class PessoasPesquisaComponent implements OnInit {
   constructor(
     private pessoaService: PessoaService,
     private toasty: ToastyService,
-    private confirmation: ConfirmationService
+    private confirmation: ConfirmationService,
+    private title: Title
   ) { }
 
   ngOnInit() {
-    // this.pesquisar();
+    this.title.setTitle('Pesquisa de pessoas');
   }
 
   pesquisar(pagina = 0) {
