@@ -1,3 +1,4 @@
+import { AuthService } from './../seguranca/auth.service';
 import { Title } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { NgModule, LOCALE_ID } from '@angular/core';
@@ -34,6 +35,7 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
     LancamentoService,
     PessoaService,
     ErrorHandlerService,
+    AuthService,
 
     ConfirmationService,
     Title,
