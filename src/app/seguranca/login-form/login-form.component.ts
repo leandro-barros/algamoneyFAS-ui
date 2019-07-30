@@ -22,5 +22,4 @@ export class LoginFormComponent implements OnInit {
       console.log(response);
     });
   }
-
 }

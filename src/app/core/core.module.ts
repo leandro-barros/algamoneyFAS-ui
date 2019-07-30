@@ -9,6 +9,7 @@ registerLocaleData(localePt);
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { ToastyModule } from 'ng2-toasty';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { LancamentoService } from './../lancamentos/lancamento.service';
 import { PessoaService } from './../pessoas/pessoa.service';
@@ -38,6 +39,7 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
     AuthService,
 
     ConfirmationService,
+    JwtHelperService,
     Title,
     { provide: LOCALE_ID, useValue: 'pt-BR' }
   ]
