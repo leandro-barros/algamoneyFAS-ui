@@ -31,11 +31,6 @@ export class LancamentoService {
   pesquisar(filtro: LancamentoFiltro): Observable<any> {
     let params = new HttpParams();
 
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
-    });
-
     params = params.append('page', filtro.pagina.toString());
     params = params.append('size', filtro.itensPorPagina.toString());
     if (filtro.descricao) {
@@ -47,7 +42,7 @@ export class LancamentoService {
     if (filtro.dataVencimentoFim) {
       params = params.append('dataVencimentoAte', moment(filtro.dataVencimentoFim).format('YYYY-MM-DD'));
     }
-    return this.http.get<any[]>(`${this.lancamentosUrl}?resumo`, { headers, params: params })
+    return this.http.get<any[]>(`${this.lancamentosUrl}?resumo`, { params: params })
       .pipe(
         map(res => {
           const lancamentos = res['content'];
@@ -64,13 +59,8 @@ export class LancamentoService {
       );
   }
 
-
   excluir(codigo: number): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
-    });
-    return this.http.delete(`${this.lancamentosUrl}/${codigo}`, { headers })
+    return this.http.delete(`${this.lancamentosUrl}/${codigo}`)
       .pipe(
         catchError((err) => {
           throw this.errorHandler.handle(err);
@@ -79,9 +69,9 @@ export class LancamentoService {
   }
 
   adicionar(lancamento: Lancamento): Observable<Lancamento> {
+    // TODO: Retirar depois
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
     });
     return this.http.post<Lancamento>(this.lancamentosUrl, JSON.stringify(lancamento), { headers })
       .pipe(
@@ -92,9 +82,9 @@ export class LancamentoService {
   }
 
   atualizar(lancamento: Lancamento): Observable<Lancamento> {
+     // TODO: Retirar depois
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
     });
     return this.http.put<Lancamento>(`${this.lancamentosUrl}/${lancamento.id}`,
       JSON.stringify(lancamento), { headers })
@@ -111,11 +101,7 @@ export class LancamentoService {
   }
 
   buscarPorCodigo(codigo: number): Observable<Lancamento> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
-    });
-    return this.http.get<Lancamento>(`${this.lancamentosUrl}/${codigo}`, { headers })
+    return this.http.get<Lancamento>(`${this.lancamentosUrl}/${codigo}`)
       .pipe(
         map(response => {
           const lancamento = response;
@@ -139,15 +125,5 @@ export class LancamentoService {
       }
     }
   }
-
-  // excluir(codigo: number): Promise<void> {
-  //   const headers = new HttpHeaders({
-  //     'Content-Type': 'application/json',
-  //     'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
-  //   });
-  //   return this.http.delete(`${this.lancamentosUrl}/${codigo}`, { headers })
-  //     .toPromise()
-  //     .then(() => null);
-  // }
 
 }

@@ -1,5 +1,5 @@
 import { ErrorHandlerService } from './../core/error-handler.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -17,11 +17,7 @@ export class CategoriaService {
   categoriasUrl = 'http://localhost:8080/categorias';
 
   listaCategorias(): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
-    });
-    return this.http.get(`${this.categoriasUrl}`, { headers })
+    return this.http.get(`${this.categoriasUrl}`)
       .pipe(
         catchError(error => {
           throw this.errorHandler.handle(error);

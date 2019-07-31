@@ -9,9 +9,9 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SegurancaRoutingModule } from './seguranca-routing.module';
 
-// export function tokenGetter() {
-//   return localStorage.getItem('token');
-// }
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [LoginFormComponent],
@@ -21,9 +21,8 @@ import { SegurancaRoutingModule } from './seguranca-routing.module';
 
     JwtModule.forRoot({
       config: {
-        tokenGetter: function  tokenGetter() {
-          return     localStorage.getItem('access_token');},
-        whitelistedDomains: ['localhost:4200'],
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:8080'],
         blacklistedRoutes: ['http://localhost:8080/oauth/token']
       }
     }),
@@ -32,6 +31,6 @@ import { SegurancaRoutingModule } from './seguranca-routing.module';
     ButtonModule,
 
     SegurancaRoutingModule
-  ]
+  ],
 })
 export class SegurancaModule { }
