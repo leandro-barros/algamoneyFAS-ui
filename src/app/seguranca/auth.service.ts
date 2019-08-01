@@ -54,7 +54,7 @@ export class AuthService {
     });
 
     const body = `username=${usuario}&password=${senha}&grant_type=password`;
-    return this.http.post<any>(this.oauthTokenUrl, body, { headers })
+    return this.http.post<any>(this.oauthTokenUrl, body, { headers, withCredentials: true })
       .toPromise()
       .then(response => {
         // console.log(response);
@@ -68,6 +68,25 @@ export class AuthService {
         }
 
         return Promise.reject(response);
+      });
+  }
+
+  obterNovoAccessToken(): Promise<void> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      "Authorization": 'Basic YW5ndWxhcjpAbmd1bEByMA=='
+    });
+    const body = 'grant_type=refresh_token';
+    return this.http.post<any>(this.oauthTokenUrl, body, { headers, withCredentials: true })
+      .toPromise()
+      .then(response => {
+        this.armazenarToken(response.access_token);
+        console.log('Novo Access token criado');
+        return Promise.resolve(null);
+      })
+      .catch(response => {
+        console.log('Erro ao criar Access token', response);
+        return Promise.resolve(null);
       });
   }
 
