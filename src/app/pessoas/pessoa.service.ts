@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 
 import { Pessoa } from './../core/model';
 import { ErrorHandlerService } from './../core/error-handler.service';
+import { MoneyHttp } from './../seguranca/money-http';
 
 export class PessoaFiltro {
   nome: string;
@@ -21,7 +22,7 @@ export class PessoaService {
   pessoasUrl = 'http://localhost:8080/pessoas';
 
   constructor(
-    private http: HttpClient,
+    private http: MoneyHttp,
     private errorHandler: ErrorHandlerService
   ) { }
 

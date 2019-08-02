@@ -1,3 +1,4 @@
+import { MoneyHttp } from './../seguranca/money-http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -24,7 +25,7 @@ export class LancamentoService {
   lancamentosUrl = 'http://localhost:8080/lancamentos';
 
   constructor(
-    private http: HttpClient,
+    private http: MoneyHttp,
     private errorHandler: ErrorHandlerService
   ) { }
 

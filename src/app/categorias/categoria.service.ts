@@ -1,8 +1,9 @@
-import { ErrorHandlerService } from './../core/error-handler.service';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
+import { ErrorHandlerService } from './../core/error-handler.service';
+import { MoneyHttp } from './../seguranca/money-http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { catchError } from 'rxjs/operators';
 export class CategoriaService {
 
   constructor(
-    private http: HttpClient,
+    private http: MoneyHttp,
     private errorHandler: ErrorHandlerService
   ) { }
 

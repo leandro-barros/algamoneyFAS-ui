@@ -1,3 +1,4 @@
+import { MoneyHttp } from './../seguranca/money-http';
 import { AuthService } from './../seguranca/auth.service';
 import { Title } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
@@ -37,6 +38,7 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
     PessoaService,
     ErrorHandlerService,
     AuthService,
+    MoneyHttp,
 
     ConfirmationService,
     JwtHelperService,
