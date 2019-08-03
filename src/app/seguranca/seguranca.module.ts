@@ -8,6 +8,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SegurancaRoutingModule } from './seguranca-routing.module';
+import { AuthGuard } from './auth.guard';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -32,5 +33,6 @@ export function tokenGetter() {
 
     SegurancaRoutingModule
   ],
+  providers: [AuthGuard]
 })
 export class SegurancaModule { }
