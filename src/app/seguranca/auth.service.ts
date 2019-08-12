@@ -13,6 +13,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
 
   oauthTokenUrl = 'http://localhost:8080/oauth/token';
+  tokensRevokeUrl = 'http://localhost:8080/tokens/revoke';
   jwtPayLoad: any;
 
   constructor(
@@ -71,6 +72,14 @@ export class AuthService {
       });
   }
 
+  logout() {
+    return this.http.delete(this.tokensRevokeUrl, { withCredentials: true })
+      .toPromise()
+      .then(() => {
+        this.limparAccessToken();
+      });
+  }
+
   obterNovoAccessToken(): Promise<void> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -88,6 +97,11 @@ export class AuthService {
         console.log('Erro ao criar Access token', response);
         return Promise.resolve(null);
       });
+  }
+
+  limparAccessToken() {
+    localStorage.removeItem('token');
+    this.jwtPayLoad = null;
   }
 
   isAccessTokenInvalid() {
