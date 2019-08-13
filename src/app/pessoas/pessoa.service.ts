@@ -4,6 +4,7 @@ import { HttpHeaders, HttpParams, HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
+import { environment } from './../../environments/environment';
 import { Pessoa } from './../core/model';
 import { ErrorHandlerService } from './../core/error-handler.service';
 import { MoneyHttp } from './../seguranca/money-http';
@@ -19,12 +20,14 @@ export class PessoaFiltro {
 })
 export class PessoaService {
 
-  pessoasUrl = 'http://localhost:8080/pessoas';
+  pessoasUrl: string;
 
   constructor(
     private http: MoneyHttp,
     private errorHandler: ErrorHandlerService
-  ) { }
+  ) {
+    this.pessoasUrl = `${environment.apiUrl}/pessoas`;
+  }
 
   pesquisar(filtro: PessoaFiltro): Observable<any> {
     let params = new HttpParams();

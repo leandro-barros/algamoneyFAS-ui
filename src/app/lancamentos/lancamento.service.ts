@@ -1,11 +1,12 @@
 import { MoneyHttp } from './../seguranca/money-http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 import * as moment from 'moment';
 
+import { environment } from './../../environments/environment';
 import { Lancamento } from './../core/model';
 import { ErrorHandlerService } from './../core/error-handler.service';
 
@@ -22,12 +23,14 @@ export class LancamentoFiltro {
 })
 export class LancamentoService {
 
-  lancamentosUrl = 'http://localhost:8080/lancamentos';
+  lancamentosUrl: string;
 
   constructor(
     private http: MoneyHttp,
     private errorHandler: ErrorHandlerService
-  ) { }
+  ) {
+    this.lancamentosUrl = `${environment.apiUrl}/lancamentos`;
+  }
 
   pesquisar(filtro: LancamentoFiltro): Observable<any> {
     let params = new HttpParams();

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+import { environment } from './../../environments/environment';
 import { ErrorHandlerService } from './../core/error-handler.service';
 import { MoneyHttp } from './../seguranca/money-http';
 
@@ -10,12 +11,14 @@ import { MoneyHttp } from './../seguranca/money-http';
 })
 export class CategoriaService {
 
+  categoriasUrl: string;
+
   constructor(
     private http: MoneyHttp,
     private errorHandler: ErrorHandlerService
-  ) { }
-
-  categoriasUrl = 'http://localhost:8080/categorias';
+  ) {
+    this.categoriasUrl = `${environment.apiUrl}/categorias`;
+  }
 
   listaCategorias(): Observable<any> {
     return this.http.get(`${this.categoriasUrl}`)
