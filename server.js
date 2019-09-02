@@ -1,11 +1,12 @@
 const express = require('express');
+path = require('path');
 const app = express();
 
-app.use(express.static(__dirname + '/dist/algamoneyFAS-ui'));
+app.use(express.static('./dist/algamoneyFAS-ui'));
 // app.use(express.static(__dirname + '/dist'));
 
 app.get('/*', function(req, res) {
-  res.sendFile(__dirname + '/dist/algamoneyFAS-ui/index.html');
+  res.sendFile(path.join(__dirname, '/dist/algamoneyFAS-ui/index.html'));
 });
 
 app.listen(4200);
