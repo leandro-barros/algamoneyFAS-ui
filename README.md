@@ -32,6 +32,8 @@ Link curso: https://cafe.algaworks.com/fsas-inscricoes/
 
 ## 🚀 Executar o projeto
 
+## 🛠 Tecnologias
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.3.
 
 ## Development server
