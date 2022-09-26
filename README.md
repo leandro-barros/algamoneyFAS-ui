@@ -24,6 +24,12 @@
 
 ## 💻 Sobre o projeto
 
+Projeto do curso Fullstack Angular e Spring da AlgaWorks. Foi implementado API Rest para controlar as despesas e receitas de pequenos estabelecimentos.
+
+Repositório do Back-end: https://github.com/leandro-barros/algamoneyFAS-api
+
+Link curso: https://cafe.algaworks.com/fsas-inscricoes/
+
 ## 🚀 Executar o projeto
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.3.
